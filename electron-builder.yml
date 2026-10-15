@@ -1,0 +1,33 @@
+appId: com.tmuxpromax.app
+productName: Tmux Pro Max
+# node-pty 1.x is an N-API module, so the binary npm installed already works inside
+# Electron; skipping the rebuild avoids downloading Electron headers at package time.
+npmRebuild: false
+directories:
+  output: release
+  buildResources: build
+files:
+  - out/**
+  - package.json
+extraResources:
+  - from: build/icon.png
+    to: icon.png
+asarUnpack:
+  - node_modules/node-pty/**
+mac:
+  category: public.app-category.developer-tools
+  target:
+    - target: dmg
+      arch: [arm64, x64]
+  icon: build/icon.png
+win:
+  target: nsis
+  icon: build/icon.png
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+linux:
+  target: [AppImage, deb]
+  category: Development
+  icon: build/icon.png
+  maintainer: blazespark221-byte
